@@ -2,25 +2,25 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/greek warrior with sword 3 animation1.png-32fbb239efbf03fb6d49dc0e2e4c622d.stex"
+path="res://.import/greek warrior right_facing animation_frame 2.png-7995bd799c0904ba3038f1a0654b17b3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://greek warrior with sword 3 animation1.png"
-dest_files=[ "res://.import/greek warrior with sword 3 animation1.png-32fbb239efbf03fb6d49dc0e2e4c622d.stex" ]
+source_file="res://assets/art/Player/greek warrior right_facing animation_frame 2.png"
+dest_files=[ "res://.import/greek warrior right_facing animation_frame 2.png-7995bd799c0904ba3038f1a0654b17b3.stex" ]
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
