@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/Player/greek warrior right_facing animation_frame.png" type="Texture" id=2]
@@ -221,34 +221,6 @@ tracks/0/keys = {
 "values": [ Vector2( -6, 6 ), Vector2( 2, -2 ), Vector2( 4.76837e-07, -4.76837e-07 ) ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=7]
-animation = "Idle"
-
-[sub_resource type="AnimationNodeAnimation" id=8]
-animation = "Moving"
-
-[sub_resource type="AnimationNodeAnimation" id=9]
-animation = "sword_swing_nw"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=10]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=11]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=12]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=13]
-
-[sub_resource type="AnimationNodeStateMachine" id=14]
-states/Idle/node = SubResource( 7 )
-states/Idle/position = Vector2( 380, 116 )
-states/Moving/node = SubResource( 8 )
-states/Moving/position = Vector2( 591, 116 )
-states/sword_swing_nw/node = SubResource( 9 )
-states/sword_swing_nw/position = Vector2( 380, 241 )
-transitions = [ "Idle", "Moving", SubResource( 10 ), "Moving", "Idle", SubResource( 11 ), "Idle", "sword_swing_nw", SubResource( 12 ), "sword_swing_nw", "Idle", SubResource( 13 ) ]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=15]
-
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
@@ -262,7 +234,8 @@ position = Vector2( -1, 11 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -2, 2 )
+position = Vector2( 2, 2 )
+z_index = 1
 frames = SubResource( 2 )
 animation = "moving"
 
@@ -278,11 +251,5 @@ anims/sword_swing_ne = SubResource( 16 )
 anims/sword_swing_nw = SubResource( 6 )
 anims/sword_swing_se = SubResource( 17 )
 anims/sword_swing_sw = SubResource( 18 )
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 14 )
-anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/playback = SubResource( 15 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
