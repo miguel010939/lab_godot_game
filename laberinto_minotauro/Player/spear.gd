@@ -9,7 +9,7 @@ func throw_direction(dir: Vector2):
 	# velocidad segun la direccion
 	velocity=direction*SPEED
 	var angle = atan(direction.y/direction.x)*(360/(2*PI))
-	
+	# gira el sprite para que tenga sentido, segun la direccion de lanzamiento
 	if direction.x <= 0:
 		get_child(0).rotation_degrees += angle-90.0
 	else:
@@ -17,5 +17,5 @@ func throw_direction(dir: Vector2):
 
 func _physics_process(delta):
 	
-	
 	move_and_slide(velocity)
+	

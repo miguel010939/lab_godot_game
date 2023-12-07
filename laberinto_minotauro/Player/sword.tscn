@@ -68,5 +68,5 @@ autoplay = "swing"
 anims/RESET = SubResource( 3 )
 anims/swing = SubResource( 4 )
 
-[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="body_entered" from="." to="." method="_on_Area2D_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

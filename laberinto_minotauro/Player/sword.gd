@@ -17,9 +17,12 @@ func adhoc_constructor(quadrant="nw"):
 			queue_free()
 		
 
-func _on_AnimatedSprite_animation_finished():
-	queue_free()
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	queue_free()
+
+
+func _on_Area2D_body_entered(body):
+	if body.is_in_group("enemy"):
+		body.damage_taken()

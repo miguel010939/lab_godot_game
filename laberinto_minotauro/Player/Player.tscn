@@ -6,7 +6,8 @@
 [ext_resource path="res://assets/art/Player/greek warrior right_facing idle.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
-height = 5.0
+radius = 9.0
+height = 8.0
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -95,7 +96,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id=20]
 resource_name = "javelin_throw_ne"
-length = 1.21
+length = 0.51
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:position")
 tracks/0/interp = 1
@@ -103,7 +104,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.95, 1.1, 1.2 ),
+"times": PoolRealArray( 0.2, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( -7, 7 ), Vector2( 2, -2 ), Vector2( 0, 0 ) ]
@@ -111,7 +112,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=19]
 resource_name = "javelin_throw_nw"
-length = 1.21
+length = 0.51
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:position")
 tracks/0/interp = 1
@@ -119,7 +120,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.95, 1.1, 1.2 ),
+"times": PoolRealArray( 0.2, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 7, 7 ), Vector2( -2, -2 ), Vector2( 0, 0 ) ]
@@ -127,7 +128,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=21]
 resource_name = "javelin_throw_se"
-length = 1.21
+length = 0.51
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:position")
 tracks/0/interp = 1
@@ -135,7 +136,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.95, 1.1, 1.2 ),
+"times": PoolRealArray( 0.2, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( -7, -7 ), Vector2( 2, 2 ), Vector2( 0, 0 ) ]
@@ -143,7 +144,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=22]
 resource_name = "javelin_throw_sw"
-length = 1.21
+length = 0.51
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:position")
 tracks/0/interp = 1
@@ -151,7 +152,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.95, 1.1, 1.2 ),
+"times": PoolRealArray( 0.2, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 7, -7 ), Vector2( -2, 2 ), Vector2( 0, 0 ) ]
@@ -221,8 +222,9 @@ tracks/0/keys = {
 "values": [ Vector2( -6, 6 ), Vector2( 2, -2 ), Vector2( 4.76837e-07, -4.76837e-07 ) ]
 }
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["player"]]
 script = ExtResource( 1 )
+thread_remaining = 200
 
 [node name="Camera2D" type="Camera2D" parent="."]
 rotating = true
@@ -230,11 +232,10 @@ current = true
 zoom = Vector2( 0.65, 0.65 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -1, 11 )
+position = Vector2( 0, 9 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 2, 2 )
 z_index = 1
 frames = SubResource( 2 )
 animation = "moving"
@@ -252,4 +253,17 @@ anims/sword_swing_nw = SubResource( 6 )
 anims/sword_swing_se = SubResource( 17 )
 anims/sword_swing_sw = SubResource( 18 )
 
+[node name="Timers" type="Node" parent="."]
+
+[node name="SwordSwingTimer" type="Timer" parent="Timers"]
+wait_time = 0.25
+one_shot = true
+
+[node name="SpearThrowTimer" type="Timer" parent="Timers"]
+process_mode = 0
+wait_time = 0.25
+one_shot = true
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="Timers/SwordSwingTimer" to="." method="_on_SwordSwingTimer_timeout"]
+[connection signal="timeout" from="Timers/SpearThrowTimer" to="." method="_on_SpearThrowTimer_timeout"]
