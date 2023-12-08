@@ -24,7 +24,7 @@ var quadrant_sword_swing
 onready var spear_animation_timer = get_node("Timers/SpearThrowTimer")
 var spear_throw_direction = Vector2(1, 2)
 
-onready var thread_tilemap = get_node("../..").get_child(1)
+onready var thread_tilemap = get_node("../").get_child(2)
 onready var anim = get_node("AnimationPlayer")
 onready var player_sprite = get_node("AnimatedSprite")
 
