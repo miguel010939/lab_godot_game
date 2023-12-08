@@ -1,8 +1,11 @@
 extends KinematicBody2D
 
+#onready var game = get_node("/root/Game")
+
 export var sight_range = 150
 export var speed = 1
 var velocity = Vector2()
+var health = Game.enemy_A_health
 
 var rng = RandomNumberGenerator.new()
 var player_detected = false
@@ -16,6 +19,8 @@ onready var area_atack = get_node("AreaAtack")
 
 func _physics_process(delta):
 	velocity = Vector2.ZERO
+	
+	check_alive()
 	
 	detect_player()
 	if player_detected:
@@ -37,10 +42,12 @@ func animate():
 	else:
 		animation.stop()
 
-func damage_taken():
+func damage_taken(amount):
 	var tween = get_tree().create_tween()
 	tween.tween_property(sprite, "modulate", Color.red, 0.15)
 	tween.tween_property(sprite, "modulate", Color.white, 0.2)
+	
+	health -= amount
 
 func detect_player():
 	if ray1.is_colliding() and ray1.get_collider().is_in_group("player"):
@@ -105,10 +112,14 @@ func _on_AreaAtack_body_exited(body):
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("spear"):
-		damage_taken()
+		damage_taken(Game.spear_dmg)
 		body.queue_free()
 
 
 func _on_TimerDmgOverTime_timeout():
 	if area_atack.overlaps_body(player):
 		player.damage_taken()
+
+func check_alive():
+	if health <= 0:
+		queue_free()

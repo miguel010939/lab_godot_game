@@ -1,6 +1,5 @@
 extends Area2D
 class_name Sword
-
 var enemy
 var quad
 # rota el sprite dependiendo del cuadrante
@@ -27,7 +26,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("enemy") and is_in_quadrant(body):
-		body.damage_taken()
+		body.damage_taken(Game.sword_dmg)
 
 func is_in_quadrant(enemy):
 	var quadrant

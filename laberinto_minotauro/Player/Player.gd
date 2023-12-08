@@ -1,7 +1,8 @@
 extends KinematicBody2D
 class_name Player
 export var speed = 100
-export var health = 10
+#onready var game = get_node("/root/Game")
+var health = Game.player_health
 
 var velocity = Vector2()
 
@@ -30,6 +31,8 @@ onready var player_sprite = get_node("AnimatedSprite")
 
 func _physics_process(_delta):
 	velocity = Vector2.ZERO
+	check_alive()
+
 	if Input.is_action_pressed("ui_left"):
 		velocity.x-=1
 	if Input.is_action_pressed("ui_right"):
@@ -187,6 +190,8 @@ func damage_taken():
 	var tween = get_tree().create_tween()
 	tween.tween_property(player_sprite, "modulate", Color.red, 0.15)
 	tween.tween_property(player_sprite, "modulate", Color.white, 0.2)
+	
+	health -= Game.enemy_A_dmg
 
 
 
@@ -203,3 +208,12 @@ func _on_SpearThrowTimer_timeout():
 	# lanza la lanza
 	instantiate_spear(spear_throw_direction)
 	
+func check_alive():
+	if health <= 0:
+		queue_free()
+		get_tree().change_scene("res://Menus/Menu.tscn")
+
+
+func _on_ButtonTP_pressed():
+	self.position.x = get_parent().checkpoint_X
+	self.position.y = get_parent().checkpoint_Y 
